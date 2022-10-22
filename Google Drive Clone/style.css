@@ -82,7 +82,7 @@ nav ul a img{
     left: 24px;
     line-height: 36 px !important;
 }
-input[type=search]:not(.browser-default){
+input[type="search"]:not(.browser-default){
     display: block;
     padding: 11px 8px 11px 72px;
     width: 100%;
@@ -94,15 +94,15 @@ input[type=search]:not(.browser-default){
     border-radius: 2px;
     color: #757575;
 }
-input[type=search]:focus{
+input[type="search"]:focus{
     border-bottom: none !important;
     box-shadow: none !important;
 }
-input[type=search]::placeholder{
+input[type="search"]::placeholder{
     color: #757575;
 }
 /* sidenav */
-.side-nav .floating {
+.side-nav.floating {
     width: 250px;
     padding: 85px 8px 0 !important;
     height: calc(100%-130px);
