@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { createBrowserRouter,createRoutesFromElements,Navigate,Outlet,redirect,Route, RouterProvider } from "react-router-dom"
+import { createBrowserRouter,createRoutesFromElements,Link,Navigate,Outlet,redirect,Route, RouterProvider } from "react-router-dom"
 import { AuthProvider, useAuth } from "./common/auth";
 import ProfilesProvider from "./common/profiles-context";
 import Layout from "./components/layout";
+import Loader from "./components/loader";
 import Browse from "./pages/browse";
 import Login from "./pages/login";
 import Profile from "./pages/profile";
+import Registration from "./pages/registration";
 
 function ProtectedRoute({children}:{children:React.ReactElement}){
   const {user,loading}=useAuth();
@@ -16,6 +18,13 @@ function ProtectedRoute({children}:{children:React.ReactElement}){
   return children;
 }
 
+function RouteError(){
+  return <article className="grid place-content-center gap-2 p-4">
+    <h1 className="text-4xl">The page you're looking for doesn't exist.</h1>
+    <p className="text-2xl">Browse more content <Link className="text-netflixRed" to={"/browse"}>here</Link>.</p>
+  </article>
+}
+
 function AppRouter(){
   const {loading,user}=useAuth();
   const router= createBrowserRouter(createRoutesFromElements(<>
@@ -23,7 +32,8 @@ function AppRouter(){
     <ProtectedRoute>
       <Outlet/>
     </ProtectedRoute>
-    }>
+    }
+    errorElement={<RouteError />}>
       <Route index element={<Profile/>} />
       <Route path="ManageProfiles" element={<Profile edit/>} />
       <Route path="/browse" element={<Layout />}>
@@ -34,9 +44,12 @@ function AppRouter(){
       </Route>
     </Route>
     <Route path="/login" element={<Login />}/>
+    <Route path="/signup" element={<Registration />}/>
     </>
   ));
-  return loading && !user? <section className="grid place-items-center h-screen w-screen text-6xl">Loading...</section> : <RouterProvider router={router}></RouterProvider>
+  return loading? (
+    <Loader />
+  ) : (<RouterProvider router={router}></RouterProvider>);
 }
 
 export default function App() {

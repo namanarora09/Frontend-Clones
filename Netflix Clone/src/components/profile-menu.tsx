@@ -21,9 +21,9 @@ export default function ProfileMenu(){
         setShowMenu(true);
     }
     function onMouseExit(){
-        timerId.current=setTimeout(()=>{
+        timerId.current=window.setTimeout(() => {
             setShowMenu(false);
-        },300);
+        }, 300);
     }
     useEffect(()=>{
         profileMenuContainer.current?.addEventListener("mouseenter",onMouseEnter)
@@ -54,7 +54,7 @@ export default function ProfileMenu(){
             </section>
             {showMenu? <ul className="absolute top-[60px] flex flex-col gap-4 bg-dark justify-center px-4 py-2 w-[200px] -left-24">
                 {userProfiles?.profiles.filter(profile=>profile.id!==currentProfile?.id)?.map(profile=> <li className="flex cursor-pointer items-center gap-2 hover:underline" key={profile.id} onClick={()=>loadProfile(profile)}> <img className="h-8 w-8" src={profile.imageUrl} alt={profile.name} /> {profile.name}</li>)}
-                <li className={userProfiles?.profiles.length??0>1? "border-t border-t-gray-500 -mx-4 px-4 pt-2":""}>
+                <li className={(userProfiles?.profiles.length??0)>1? "border-t border-t-gray-500 -mx-4 px-4 pt-2":""}>
                     <Link className="hover:underline" to="/ManageProfiles">
                         Manage Profiles
                     </Link>

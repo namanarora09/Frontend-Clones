@@ -21,7 +21,7 @@ export default function ProfilesProvider({children}:{children:React.ReactElement
         if(user?.email){
             if(state){
                 const storedProfiles=getProfiles();
-                storedProfiles.set(user.email,userProfiles as ProfilesContextType);
+                storedProfiles.set(user.email,state as ProfilesContextType);
                 updatedProfiles(storedProfiles);
             }else{
                 dispatch({type:"load",payload:userProfiles});

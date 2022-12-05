@@ -5,6 +5,7 @@ import { ENDPOINT } from "../common/endpoints";
 import { createImageURL } from "../common/utils";
 import PlayIcon from "@heroicons/react/24/solid/PlayIcon";
 import Info from "@heroicons/react/24/outline/InformationCircleIcon";
+import Loader from "./loader";
 
 export default function(){
 
@@ -37,7 +38,7 @@ export default function(){
         setVideoInfo(videoInfo[0]);
         setTimeout(()=>{
             setHidePoster(true);
-        },800)
+        },1000);
     }
 
     useEffect(()=>{
@@ -63,11 +64,11 @@ export default function(){
                 <h2 className="text-6xl">{randomMovie.title}</h2>
                 <p className="text-sm line-clamp-3">{randomMovie.overview}</p>
                 <section className="flex gap-2">
-                    <button className="flex items-center w-[100px] bg-white p-2 text-dark rounded-md">
+                    <button className="flex items-center w-[100px] bg-white p-2 text-dark rounded-md justify-center">
                         <PlayIcon className="w-8 h-8" /> <span>Play</span>
                     </button>
-                    <button className="flex items-center w-[150px] bg-zinc-400/50 p-2 text-white rounded-md"><Info className="w-8 h-8" /> <span>More Info</span></button>
+                    <button className="flex items-center w-[150px] bg-zinc-400/50 p-2 text-white rounded-md justify-center"><Info className="w-8 h-8" /> <span>More Info</span></button>
                 </section>
             </section>
-        </section>):null;
+        </section>):<Loader />;
 }
